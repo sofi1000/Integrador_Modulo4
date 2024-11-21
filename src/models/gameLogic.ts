@@ -37,6 +37,23 @@ function deleteCharacter(character:Character){
 
  }
 
+ // El jugador sube de nivel 
+ // Se ejecuta aleatoriamente cada 1 y 30 segundos y sube de nivel solo si la vida es 100
+ async function updateCharacterLevel(character:Character) {
+    const timeLevelUp = Math.floor(Math.random() * (30000 - 1000 + 1)); 
+    let newLevel = character.level;
+    while (true) {
+      await new Promise(resolve => setTimeout(resolve, timeLevelUp));
+  
+      if (character.health === 100) {
+        newLevel++;
+        updateCharacter(character,character.name,newLevel,character.health);
+        console.log(`Level Up!! Tu nuevo nivel es: ${newLevel}`);
+      }
+    }
+  }
+  
+
  function listMissions(character: Character){
     return ;
  }
@@ -48,5 +65,6 @@ function deleteCharacter(character:Character){
     assingMission,
     completeMission,
     listMissions,
+    updateCharacterLevel,
     
  };
